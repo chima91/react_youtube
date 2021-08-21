@@ -1,23 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [state, setState] = useState(new Date());
+
+  setInterval(() => {
+    setState(new Date());
+  }, 1000);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          ReactBootcamp Youtube App
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          第一回目勉強会
-        </a>
+        <p>{state.toLocaleTimeString()}</p>
       </header>
     </div>
   );
