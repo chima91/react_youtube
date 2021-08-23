@@ -4,6 +4,7 @@ import { HomeLayout } from "./layouts/Home";
 import { SideLessHomeLayout } from "./layouts/SideLessHome";
 import { SimpleLayout } from "./layouts/Simple";
 import { Home } from "./pages/Home";
+import { Watch } from "./pages/Watch";
 
 export const RootRouter = () => {
   // useRoutesを使用することで、ルーティング用のコンポーネントをライブラリがいい感じに作成してくれる
@@ -23,7 +24,7 @@ export const RootRouter = () => {
       element: <SideLessHomeLayout />,
       children: [
         { path: "watch", element: <Navigate to="/" /> },
-        { path: "watch/:videoId", element: <div>watch</div> }
+        { path: "watch/:videoId", element: <Watch /> }
       ]
     },
 
