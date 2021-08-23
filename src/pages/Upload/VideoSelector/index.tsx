@@ -1,4 +1,5 @@
 import { Button } from "@material-ui/core";
+import { ChangeEvent, useState } from "react";
 import { useRef } from "react";
 
 export const VideoSelect = () => {
@@ -6,6 +7,14 @@ export const VideoSelect = () => {
   const handleClick = () => {
     inputRef.current?.click();
   }
+
+  const [file, setFile] = useState<File>();
+  const selectedFile = (event: ChangeEvent<HTMLInputElement>) => {
+    if(event.currentTarget.files?.length) {
+      setFile(event.currentTarget.files[0]);
+    }
+  }
+
   return (
     <div>
       {/*
@@ -14,7 +23,8 @@ export const VideoSelect = () => {
         また、デザインを見て頂くと、<input>の表示はされていません。
         このデザインにするために、<input type="file" hidden />とすることで<input>タグを非表示にしています。
       */}
-      <input type="file" hidden ref={inputRef} />
+      <input type="file" hidden ref={inputRef} onChange={selectedFile} />
+      {file?.name}
       <Button variant="contained" color="primary" onClick={handleClick}>
         ファイルを選択
       </Button>
