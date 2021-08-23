@@ -1,19 +1,21 @@
 import { Navigate, useRoutes } from "react-router-dom";
+
 import { HomeLayout } from "./layouts/Home";
 import { SideLessHomeLayout } from "./layouts/SideLessHome";
 import { SimpleLayout } from "./layouts/Simple";
+import { Home } from "./pages/Home";
 
 export const RootRouter = () => {
-  // useRoutesを使用することで、ルーティング用のコンポーネントをいい感じにライブラリが作成してくれる
+  // useRoutesを使用することで、ルーティング用のコンポーネントをライブラリがいい感じに作成してくれる
   // v6.0.0-beta.1から追加された便利機能
   return useRoutes([
     // elementに指定したコンポーネントをページのレイアウトデザインとして使用する
-    // childrenでは、pathに指定したurlで、使用するコンポーネントを指定する
+    // childrenでは、pathに指定したurlで使用するコンポーネントを指定する
 
     // HeaderとSidebarがあるデザインのページ
     {
       element: <HomeLayout />,
-      children: [{ path: "/", element: <div>Home</div> }]
+      children: [{ path: "/", element: <Home /> }]
     },
 
     // Headerのみのデザインのページ
