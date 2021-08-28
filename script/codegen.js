@@ -6,10 +6,20 @@ module.exports = {
       },
     },
   },
-  documents: "",
+  documents: [
+    "graphql/query/users.graphql",
+    "graphql/mutation/InsertUser.graphql"
+  ],
   generates: {
     "src/utils/graphql/generated.ts": {
-      plugins: ["typescript", "typescript-operations"],
+      plugins: [
+        "typescript",
+        "typescript-operations",
+        "typescript-react-apollo",
+      ],
+      config: {
+        withHooks: true,
+      }
     }
   },
 };
