@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
+import { RecoilRoot } from 'recoil';
 
 import { RootRouter } from './Route';
 import GlobalStyle from './GlobalStyle';
@@ -32,15 +33,17 @@ const apolloClient = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <ApolloProvider client={apolloClient}>
-        <BrowserRouter>
-          <CssBaseline />
-          <GlobalStyle />
-          <RootRouter />
-        </BrowserRouter>
-      </ApolloProvider>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <ApolloProvider client={apolloClient}>
+          <BrowserRouter>
+            <CssBaseline />
+            <GlobalStyle />
+            <RootRouter />
+          </BrowserRouter>
+        </ApolloProvider>
+      </ThemeProvider>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
 );
