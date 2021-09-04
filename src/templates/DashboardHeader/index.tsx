@@ -1,6 +1,7 @@
 import { AppBar, Avatar, IconButton, Toolbar, Typography } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import VideoCallIcon from "@material-ui/icons/VideoCall";
+import { Link } from "react-router-dom";
 
 import { Logo } from "../../components/Logo";
 import { useUserByIdQuery } from "../../utils/graphql/generated";
@@ -25,9 +26,9 @@ export const DashboardHeader = () => {
             <MenuIcon />
           </IconButton>
           {/* useStylesの値は、CSSモジュールと全く同じような使い方で使用できる */}
-          <div className={styles.logo}>
+          <Link to="/" className={styles.logo}>
             <Logo/>
-          </div>
+          </Link>
         </div>
 
         <SearchBar />

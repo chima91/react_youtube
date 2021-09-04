@@ -2,6 +2,7 @@ import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
+import { Link } from "react-router-dom";
 
 import useStyles from "./style";
 
@@ -10,7 +11,7 @@ export const Sidebar = () => {
 
   return (
     <List className={styles.root} component="nav">
-      <ListItem button>
+      <ListItem button component={Link} to="/">
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
