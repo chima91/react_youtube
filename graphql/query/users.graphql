@@ -3,6 +3,7 @@ query UserById($id: String!) {
     created_at
     id
     name
+    email
     profile_photo_url
     updated_at
   }
