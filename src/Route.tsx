@@ -6,6 +6,7 @@ import { SimpleLayout } from "./layouts/Simple";
 import { ForgetPassForm } from "./pages/ForgetPassForm";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
+import { Signout } from "./pages/Signout";
 import { Signup } from "./pages/Signup";
 import { Upload } from "./pages/Upload";
 import { Watch } from "./pages/Watch";
@@ -41,6 +42,7 @@ export const RootRouter = () => {
       children: [
         { path: "login", element: <Login /> },
         { path: "signup", element: <Signup /> },
+        { path: "signout", element: <Signout /> },
         { path: "forget", element: <ForgetPassForm /> },
         { path: "404", element: <div>Not Found</div> },
         { path: "*", element: <Navigate to="/404" /> },
