@@ -43,7 +43,8 @@ export const GlobalAccount = ({ children }: PropsWithChildren<{}>) => {
   useEffect(() => {
     // onAuthStateChangedのロードが終了したタイミングで、ユーザ情報を取れていればRecoilを更新し、取れていなければRecoilをundefinedにする
     if(authLoaded && !apolloLoading) {
-      if(apolloData?.users_by_pk?.id) {
+      //credentialにidが格納されていなければデータは格納できない
+      if(apolloData?.users_by_pk?.id && credential) {
         setGlobalUser(apolloData.users_by_pk);
       } else {
         if(globalUser?.id) {
