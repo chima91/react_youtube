@@ -8,6 +8,7 @@ import { RecoilRoot } from 'recoil';
 
 import { RootRouter } from './Route';
 import GlobalStyle from './GlobalStyle';
+import { AuthStateListener } from './providers/AuthStateListener';
 
 const theme = createTheme();
 
@@ -36,11 +37,13 @@ ReactDOM.render(
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <ApolloProvider client={apolloClient}>
-          <BrowserRouter>
-            <CssBaseline />
-            <GlobalStyle />
-            <RootRouter />
-          </BrowserRouter>
+          <AuthStateListener>
+            <BrowserRouter>
+              <CssBaseline />
+              <GlobalStyle />
+              <RootRouter />
+            </BrowserRouter>
+          </AuthStateListener>
         </ApolloProvider>
       </ThemeProvider>
     </RecoilRoot>
