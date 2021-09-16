@@ -1,21 +1,17 @@
-import { AppBar, Avatar, IconButton, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Avatar, Button, IconButton, Toolbar } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import VideoCallIcon from "@material-ui/icons/VideoCall";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 import { Logo } from "../../components/Logo";
-import { useUserByIdQuery } from "../../utils/graphql/generated";
+import { GlobalUser } from "../../stores/User";
 import { SearchBar } from "./SearchBar";
-
 import useStyles from "./style";
 
 export const DashboardHeader = () => {
   const styles = useStyles();
-
-  // GraphQLの`query`を発行して、Hasuraのエンドポイントにリクエストを飛ばし、返り値を取得する
-  const { data } = useUserByIdQuery({
-    variables: { id: "testid" },
-  })
+  const globalUser = useRecoilValue(GlobalUser);
 
   return(
     // color: 背景を白に, elevation: box-shadowをなくす
@@ -34,15 +30,20 @@ export const DashboardHeader = () => {
         <SearchBar />
 
         <div className={styles.flex}>
-          <IconButton>
-            <Typography>{data?.users_by_pk?.name}</Typography>
-          </IconButton>
-          <IconButton>
-            <VideoCallIcon />
-          </IconButton>
-          <IconButton className={styles.profileIcon}>
-            <Avatar />
-          </IconButton>
+          {globalUser ? (
+            <>
+              <IconButton>
+                <VideoCallIcon />
+              </IconButton>
+              <IconButton className={styles.profileIcon}>
+                <Avatar />
+              </IconButton>
+            </>
+          ) : (
+            <Button variant="outlined" color="primary" href="/login">
+              ログイン
+            </Button>
+          )}
         </div>
       </Toolbar>
     </AppBar>
