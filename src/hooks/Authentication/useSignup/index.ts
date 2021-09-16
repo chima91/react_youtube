@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
+import { useSetRecoilState } from "recoil";
+import { GlobalUser } from "../../../stores/User";
 
 import { FireSignupType } from "../../../utils/Firebase/signup";
 import { signup as fireSignup } from "../../../utils/Firebase/signup";
@@ -19,6 +21,9 @@ export const useSignup = () => {
 
   // リダイレクト用の関数
   const navigate = useNavigate();
+
+  // mutaionで作成するデータを格納
+  const setGlobalUser = useSetRecoilState(GlobalUser);
 
   // userを追加するためのGraphQL Mutation Hooks
   const [insertMutation, { error: apolloError }] = useInsertUserMutation();
@@ -64,6 +69,8 @@ export const useSignup = () => {
     });
 
     if(apolloResponse.data?.insert_users_one?.id) {
+      // GraphQLでデータが作成された後に確実にデータを格納する
+      setGlobalUser(apolloResponse.data?.insert_users_one);
       navigate('/');
     } else {
       throw new Error("ユーザの登録に失敗しました!!!!")
