@@ -32,9 +32,11 @@ export const DashboardHeader = () => {
         <div className={styles.flex}>
           {globalUser ? (
             <>
-              <IconButton>
-                <VideoCallIcon />
-              </IconButton>
+              <Link to="/upload">
+                <IconButton>
+                  <VideoCallIcon />
+                </IconButton>
+              </Link>
               <IconButton className={styles.profileIcon}>
                 <Avatar />
               </IconButton>
