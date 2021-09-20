@@ -12,7 +12,7 @@ type UploadProps = {
     video: File;
   };
   title: string;
-  description: string;
+  description?: string;
   ownerId: string;
 };
 
