@@ -1,0 +1,32 @@
+mutation InsertVideo(
+  $description: String = ""
+  $id: String!
+  $title: String!
+  $thumbnail_url: String!
+  $video_url: String!
+  $owner_id: String!
+) {
+  insert_videos_one(
+    object: {
+      id: $id
+      title: $title
+      description: $description
+      thumbnail_url: $thumbnail_url
+      video_url: $video_url
+      owner_id: $owner_id
+      duration: 0
+      views: 0
+    }
+  ) {
+    created_at
+    description
+    duration
+    id
+    owner_id
+    thumbnail_url
+    title
+    updated_at
+    video_url
+    views
+  }
+}
