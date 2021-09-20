@@ -9,9 +9,13 @@ admin.initializeApp(functions.config().firebase);
 exports.processSignUp = functions.auth.user().onCreate(user => {
   // Hasura用のカスタムクレームの作成
   const customClaims = {
-    "http://hasura.io/jwt/claims": {
+    "https://hasura.io/jwt/claims": {
+      // x-hasura-default-roleは、ユーザのデフォルトのロール（最初に設定されるロール）、つまり、userロールを設定する。
+      // x-hasura-allowed-roles内に含まれる値である必要がある。
       "x-hasura-default-role": "user",
+      // x-hasura-allowed-rolesは、ユーザに認可されるロールのリストで、Hasuraのパーミッション設定で設定したRoleの種類と同じ。
       "x-hasura-allowed-roles": ["user"],
+      // オプションのカスタムクレーム値。今回は、Hasuraでパーミッションを設定する際に使用する。
       "x-hasura-user-id": user.uid,
     }
   };
