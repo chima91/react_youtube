@@ -492,6 +492,7 @@ export type Videos = {
   duration: Scalars['Int'];
   id: Scalars['String'];
   owner_id: Scalars['String'];
+  thumbnail_url: Scalars['String'];
   title: Scalars['String'];
   updated_at: Scalars['timestamptz'];
   video_url: Scalars['String'];
@@ -545,6 +546,7 @@ export type Videos_Bool_Exp = {
   duration?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<String_Comparison_Exp>;
   owner_id?: Maybe<String_Comparison_Exp>;
+  thumbnail_url?: Maybe<String_Comparison_Exp>;
   title?: Maybe<String_Comparison_Exp>;
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
   video_url?: Maybe<String_Comparison_Exp>;
@@ -570,6 +572,7 @@ export type Videos_Insert_Input = {
   duration?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['String']>;
   owner_id?: Maybe<Scalars['String']>;
+  thumbnail_url?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   video_url?: Maybe<Scalars['String']>;
@@ -584,6 +587,7 @@ export type Videos_Max_Fields = {
   duration?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['String']>;
   owner_id?: Maybe<Scalars['String']>;
+  thumbnail_url?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   video_url?: Maybe<Scalars['String']>;
@@ -598,6 +602,7 @@ export type Videos_Min_Fields = {
   duration?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['String']>;
   owner_id?: Maybe<Scalars['String']>;
+  thumbnail_url?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   video_url?: Maybe<Scalars['String']>;
@@ -627,6 +632,7 @@ export type Videos_Order_By = {
   duration?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   owner_id?: Maybe<Order_By>;
+  thumbnail_url?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
   updated_at?: Maybe<Order_By>;
   video_url?: Maybe<Order_By>;
@@ -651,6 +657,8 @@ export enum Videos_Select_Column {
   /** column name */
   OwnerId = 'owner_id',
   /** column name */
+  ThumbnailUrl = 'thumbnail_url',
+  /** column name */
   Title = 'title',
   /** column name */
   UpdatedAt = 'updated_at',
@@ -667,6 +675,7 @@ export type Videos_Set_Input = {
   duration?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['String']>;
   owner_id?: Maybe<Scalars['String']>;
+  thumbnail_url?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   video_url?: Maybe<Scalars['String']>;
@@ -714,6 +723,8 @@ export enum Videos_Update_Column {
   /** column name */
   OwnerId = 'owner_id',
   /** column name */
+  ThumbnailUrl = 'thumbnail_url',
+  /** column name */
   Title = 'title',
   /** column name */
   UpdatedAt = 'updated_at',
@@ -752,6 +763,18 @@ export type InsertUserMutationVariables = Exact<{
 
 
 export type InsertUserMutation = { __typename?: 'mutation_root', insert_users_one?: Maybe<{ __typename?: 'users', id: string, name: string, email: string, profile_photo_url: string, created_at: any, updated_at: any }> };
+
+export type InsertVideoMutationVariables = Exact<{
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  title: Scalars['String'];
+  thumbnail_url: Scalars['String'];
+  video_url: Scalars['String'];
+  owner_id: Scalars['String'];
+}>;
+
+
+export type InsertVideoMutation = { __typename?: 'mutation_root', insert_videos_one?: Maybe<{ __typename?: 'videos', created_at: any, description: string, duration: number, id: string, owner_id: string, thumbnail_url: string, title: string, updated_at: any, video_url: string, views: number }> };
 
 export type UserByIdQueryVariables = Exact<{
   id: Scalars['String'];
@@ -803,6 +826,55 @@ export function useInsertUserMutation(baseOptions?: Apollo.MutationHookOptions<I
 export type InsertUserMutationHookResult = ReturnType<typeof useInsertUserMutation>;
 export type InsertUserMutationResult = Apollo.MutationResult<InsertUserMutation>;
 export type InsertUserMutationOptions = Apollo.BaseMutationOptions<InsertUserMutation, InsertUserMutationVariables>;
+export const InsertVideoDocument = gql`
+    mutation InsertVideo($description: String = "", $id: String!, $title: String!, $thumbnail_url: String!, $video_url: String!, $owner_id: String!) {
+  insert_videos_one(
+    object: {id: $id, title: $title, description: $description, thumbnail_url: $thumbnail_url, video_url: $video_url, owner_id: $owner_id, duration: 0, views: 0}
+  ) {
+    created_at
+    description
+    duration
+    id
+    owner_id
+    thumbnail_url
+    title
+    updated_at
+    video_url
+    views
+  }
+}
+    `;
+export type InsertVideoMutationFn = Apollo.MutationFunction<InsertVideoMutation, InsertVideoMutationVariables>;
+
+/**
+ * __useInsertVideoMutation__
+ *
+ * To run a mutation, you first call `useInsertVideoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertVideoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertVideoMutation, { data, loading, error }] = useInsertVideoMutation({
+ *   variables: {
+ *      description: // value for 'description'
+ *      id: // value for 'id'
+ *      title: // value for 'title'
+ *      thumbnail_url: // value for 'thumbnail_url'
+ *      video_url: // value for 'video_url'
+ *      owner_id: // value for 'owner_id'
+ *   },
+ * });
+ */
+export function useInsertVideoMutation(baseOptions?: Apollo.MutationHookOptions<InsertVideoMutation, InsertVideoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertVideoMutation, InsertVideoMutationVariables>(InsertVideoDocument, options);
+      }
+export type InsertVideoMutationHookResult = ReturnType<typeof useInsertVideoMutation>;
+export type InsertVideoMutationResult = Apollo.MutationResult<InsertVideoMutation>;
+export type InsertVideoMutationOptions = Apollo.BaseMutationOptions<InsertVideoMutation, InsertVideoMutationVariables>;
 export const UserByIdDocument = gql`
     query UserById($id: String!) {
   users_by_pk(id: $id) {
