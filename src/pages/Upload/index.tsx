@@ -1,7 +1,7 @@
 import { Dialog, DialogTitle, DialogContent, Divider, Grid, CircularProgress } from "@material-ui/core";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { VideoSelect } from "./VideoSelector";
 import { UploadForm } from "./UploadForm";
@@ -11,6 +11,10 @@ import { GlobalUser } from "../../stores/User";
 
 export const Upload = () => {
   const styles = useStyles();
+
+  // ファイル管理用ローカルステート
+  const [videoFile, setVideoFile] = useState<File>();
+  const [thumbFile, setThumbFile] = useState<File>();
 
   // recoilの値を使用
   const accountLoaded = useRecoilValue(AccountLoaded);
@@ -41,11 +45,20 @@ export const Upload = () => {
         {user?.id ? (
           <Grid container spacing={4}>
             <Grid xs item>
-              <VideoSelect />
+              <VideoSelect
+                // ステートとセッターをpropsとして渡す。
+                videoFile={videoFile}
+                setVideoFile={setVideoFile}
+                setThumbFile={setThumbFile}
+              />
             </Grid>
             <Divider orientation="vertical" flexItem />
             <Grid xs item>
-              <UploadForm />
+              <UploadForm
+                // ステートをpropsとして渡す。
+                videoFile={videoFile}
+                thumbFile={thumbFile}
+              />
             </Grid>
           </Grid>
         ) : (
