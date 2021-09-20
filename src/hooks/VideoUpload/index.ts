@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import { storage } from "../../utils/Firebase/config";
 
 type UploadProps = {
@@ -27,13 +29,18 @@ export const useVideoUpload = () => {
   const upload = async({file, title, description, ownerId}: UploadProps) => {
     setLoading(true);
 
+    // 動画とサムネイルのそれぞれのuuidを生成する
+    const videoName = uuidv4();
+    const thumbName = uuidv4();
+
     try {
       // 動画のアップロード処理。動画は全て`videos`という階層に保存する。try-catch構文でPromiseのエラーをキャッチする
-      const videoUploadTask = await uploadStorage(file.video.name, file.video, "videos");
+      const videoUploadTask = await uploadStorage(videoName, file.video, "videos");
       // 画像サムネイルのアップロード処理。サムネイルは全て`thumbnails`という階層に保存する
-      const thumbnailUploadTask = await uploadStorage(file.thumbnail.name, file.thumbnail, "thumbnails");
+      const thumbnailUploadTask = await uploadStorage(thumbName, file.thumbnail, "thumbnails");
     } catch(error) {
       console.error(error);
+      setError(new Error("エラーが発生しました。最初からやり直してください!!!!"))
     } finally {
       setLoading(false);
     }
