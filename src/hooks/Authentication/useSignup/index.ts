@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useSetRecoilState } from "recoil";
-import { GlobalUser } from "../../../stores/User";
 
+import { GlobalUser } from "../../../stores/User";
 import { FireSignupType } from "../../../utils/Firebase/signup";
 import { signup as fireSignup } from "../../../utils/Firebase/signup";
 import { useInsertUserMutation } from "../../../utils/graphql/generated";
 import { SetErrorFn, useAuthHelper } from "../useAuthHelper";
+import { checkAuthToken } from "./chackAuthToken";
 
 // インターセクション型による型定義
 export type SignupPropsType = {
@@ -57,7 +58,10 @@ export const useSignup = () => {
       password: passwordRef.current?.value || ""
     });
 
-    if(!user?.uid) throw new Error("ユーザの登録に失敗しました!!!!")
+    if(!user?.uid) throw new Error("ユーザの登録に失敗しました!!!!");
+
+    // アカウントにトークンが設定されるまで待機
+    await checkAuthToken(user.uid);
 
     // Hasuraにuserを作成する
     const apolloResponse = await insertMutation({
