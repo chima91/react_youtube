@@ -1,5 +1,4 @@
 import { Typography } from "@material-ui/core";
-import { create } from "domain";
 
 export type SubHeaderContentProps = {
   owner: string;
