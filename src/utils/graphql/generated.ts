@@ -788,6 +788,13 @@ export type InsertVideoMutationVariables = Exact<{
 
 export type InsertVideoMutation = { __typename?: 'mutation_root', insert_videos_one?: Maybe<{ __typename?: 'videos', created_at: any, description: string, duration: number, id: string, owner_id: string, thumbnail_url: string, title: string, updated_at: any, video_url: string, views: number }> };
 
+export type VideoByPkQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type VideoByPkQuery = { __typename?: 'query_root', videos_by_pk?: Maybe<{ __typename?: 'videos', id: string, title: string, thumbnail_url: string, video_url: string, views: number, duration: number, description: string, updated_at: any, created_at: any, owner?: Maybe<{ __typename?: 'users', id: string, name: string, profile_photo_url: string, email: string, updated_at: any, created_at: any }> }> };
+
 export type VideosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -892,6 +899,57 @@ export function useInsertVideoMutation(baseOptions?: Apollo.MutationHookOptions<
 export type InsertVideoMutationHookResult = ReturnType<typeof useInsertVideoMutation>;
 export type InsertVideoMutationResult = Apollo.MutationResult<InsertVideoMutation>;
 export type InsertVideoMutationOptions = Apollo.BaseMutationOptions<InsertVideoMutation, InsertVideoMutationVariables>;
+export const VideoByPkDocument = gql`
+    query VideoByPk($id: String!) {
+  videos_by_pk(id: $id) {
+    id
+    title
+    thumbnail_url
+    video_url
+    views
+    duration
+    description
+    owner {
+      id
+      name
+      profile_photo_url
+      email
+      updated_at
+      created_at
+    }
+    updated_at
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useVideoByPkQuery__
+ *
+ * To run a query within a React component, call `useVideoByPkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVideoByPkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVideoByPkQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useVideoByPkQuery(baseOptions: Apollo.QueryHookOptions<VideoByPkQuery, VideoByPkQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VideoByPkQuery, VideoByPkQueryVariables>(VideoByPkDocument, options);
+      }
+export function useVideoByPkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VideoByPkQuery, VideoByPkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VideoByPkQuery, VideoByPkQueryVariables>(VideoByPkDocument, options);
+        }
+export type VideoByPkQueryHookResult = ReturnType<typeof useVideoByPkQuery>;
+export type VideoByPkLazyQueryHookResult = ReturnType<typeof useVideoByPkLazyQuery>;
+export type VideoByPkQueryResult = Apollo.QueryResult<VideoByPkQuery, VideoByPkQueryVariables>;
 export const VideosDocument = gql`
     query Videos {
   videos {
