@@ -776,6 +776,11 @@ export type InsertVideoMutationVariables = Exact<{
 
 export type InsertVideoMutation = { __typename?: 'mutation_root', insert_videos_one?: Maybe<{ __typename?: 'videos', created_at: any, description: string, duration: number, id: string, owner_id: string, thumbnail_url: string, title: string, updated_at: any, video_url: string, views: number }> };
 
+export type VideosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type VideosQuery = { __typename?: 'query_root', videos: Array<{ __typename?: 'videos', id: string, title: string, description: string, thumbnail_url: string, video_url: string, owner_id: string, duration: number, views: number, updated_at: any, created_at: any }> };
+
 export type UserByIdQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -875,6 +880,49 @@ export function useInsertVideoMutation(baseOptions?: Apollo.MutationHookOptions<
 export type InsertVideoMutationHookResult = ReturnType<typeof useInsertVideoMutation>;
 export type InsertVideoMutationResult = Apollo.MutationResult<InsertVideoMutation>;
 export type InsertVideoMutationOptions = Apollo.BaseMutationOptions<InsertVideoMutation, InsertVideoMutationVariables>;
+export const VideosDocument = gql`
+    query Videos {
+  videos {
+    id
+    title
+    description
+    thumbnail_url
+    video_url
+    owner_id
+    duration
+    views
+    updated_at
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useVideosQuery__
+ *
+ * To run a query within a React component, call `useVideosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVideosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVideosQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useVideosQuery(baseOptions?: Apollo.QueryHookOptions<VideosQuery, VideosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VideosQuery, VideosQueryVariables>(VideosDocument, options);
+      }
+export function useVideosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VideosQuery, VideosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VideosQuery, VideosQueryVariables>(VideosDocument, options);
+        }
+export type VideosQueryHookResult = ReturnType<typeof useVideosQuery>;
+export type VideosLazyQueryHookResult = ReturnType<typeof useVideosLazyQuery>;
+export type VideosQueryResult = Apollo.QueryResult<VideosQuery, VideosQueryVariables>;
 export const UserByIdDocument = gql`
     query UserById($id: String!) {
   users_by_pk(id: $id) {
