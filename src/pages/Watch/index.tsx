@@ -48,7 +48,7 @@ export const Watch = () => {
             }}
           />
         </Grid>
-        {recommendVideos?.videos.map(video => {
+        {recommendVideos?.videos.map(video => (
           <Grid item xs={4}>
             <div className={styles.cardPadding}>
               <Link to={`/watch/${video.id}`} style={{ textDecoration: "none" }}>
@@ -62,7 +62,7 @@ export const Watch = () => {
               </Link>
             </div>
           </Grid>
-        })}
+        ))}
       </Grid>
     </Container>
   );

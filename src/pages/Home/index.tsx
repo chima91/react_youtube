@@ -20,7 +20,7 @@ export const Home = () => {
       {/* 全部を囲む<Grid container>の中にそれぞれの横並び要素の<Grid item>があるイメージ*/}
       <Grid container spacing={2}>
         {/* queryで取得した動画データを表示する */}
-        {data?.videos.map(video => {
+        {data?.videos.map(video => (
           <Grid item xs={12} md={6} lg={3}>
             {/* VideoCard をクリックしたらプレイヤー画面を表示する。 */}
             <Link to={`/watch/${video.id}`} style={{ textDecoration: "none" }}>
@@ -34,7 +34,7 @@ export const Home = () => {
               />
             </Link>
           </Grid>
-        })}
+        ))}
       </Grid>
     </Container>
   )
