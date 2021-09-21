@@ -420,6 +420,13 @@ export type Users_Mutation_Response = {
   returning: Array<Users>;
 };
 
+/** input type for inserting object relation for remote table "users" */
+export type Users_Obj_Rel_Insert_Input = {
+  data: Users_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: Maybe<Users_On_Conflict>;
+};
+
 /** on conflict condition type for table "users" */
 export type Users_On_Conflict = {
   constraint: Users_Constraint;
@@ -491,6 +498,8 @@ export type Videos = {
   description: Scalars['String'];
   duration: Scalars['Int'];
   id: Scalars['String'];
+  /** An object relationship */
+  owner?: Maybe<Users>;
   owner_id: Scalars['String'];
   thumbnail_url: Scalars['String'];
   title: Scalars['String'];
@@ -545,6 +554,7 @@ export type Videos_Bool_Exp = {
   description?: Maybe<String_Comparison_Exp>;
   duration?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<String_Comparison_Exp>;
+  owner?: Maybe<Users_Bool_Exp>;
   owner_id?: Maybe<String_Comparison_Exp>;
   thumbnail_url?: Maybe<String_Comparison_Exp>;
   title?: Maybe<String_Comparison_Exp>;
@@ -571,6 +581,7 @@ export type Videos_Insert_Input = {
   description?: Maybe<Scalars['String']>;
   duration?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['String']>;
+  owner?: Maybe<Users_Obj_Rel_Insert_Input>;
   owner_id?: Maybe<Scalars['String']>;
   thumbnail_url?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
@@ -631,6 +642,7 @@ export type Videos_Order_By = {
   description?: Maybe<Order_By>;
   duration?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  owner?: Maybe<Users_Order_By>;
   owner_id?: Maybe<Order_By>;
   thumbnail_url?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
@@ -779,7 +791,7 @@ export type InsertVideoMutation = { __typename?: 'mutation_root', insert_videos_
 export type VideosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type VideosQuery = { __typename?: 'query_root', videos: Array<{ __typename?: 'videos', id: string, title: string, description: string, thumbnail_url: string, video_url: string, owner_id: string, duration: number, views: number, updated_at: any, created_at: any }> };
+export type VideosQuery = { __typename?: 'query_root', videos: Array<{ __typename?: 'videos', id: string, title: string, description: string, thumbnail_url: string, video_url: string, duration: number, views: number, updated_at: any, created_at: any, owner?: Maybe<{ __typename?: 'users', created_at: any, email: string, id: string, name: string, profile_photo_url: string, updated_at: any }> }> };
 
 export type UserByIdQueryVariables = Exact<{
   id: Scalars['String'];
@@ -888,11 +900,18 @@ export const VideosDocument = gql`
     description
     thumbnail_url
     video_url
-    owner_id
     duration
     views
     updated_at
     created_at
+    owner {
+      created_at
+      email
+      id
+      name
+      profile_photo_url
+      updated_at
+    }
   }
 }
     `;

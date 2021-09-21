@@ -26,7 +26,7 @@ export const Home = () => {
             <Link to={`/watch/${video.id}`} style={{ textDecoration: "none" }}>
               <VideoCard
                 title={video.title}
-                owner={video.owner_id}
+                owner={video.owner?.name || ''}
                 views={video.views}
                 created={video.created_at}
                 // <VideoCard>で非同期的に画像を取得するための関数
