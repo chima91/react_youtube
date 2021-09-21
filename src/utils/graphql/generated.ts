@@ -788,6 +788,13 @@ export type InsertVideoMutationVariables = Exact<{
 
 export type InsertVideoMutation = { __typename?: 'mutation_root', insert_videos_one?: Maybe<{ __typename?: 'videos', created_at: any, description: string, duration: number, id: string, owner_id: string, thumbnail_url: string, title: string, updated_at: any, video_url: string, views: number }> };
 
+export type RecommendVideosQueryVariables = Exact<{
+  currentVideoId: Scalars['String'];
+}>;
+
+
+export type RecommendVideosQuery = { __typename?: 'query_root', videos: Array<{ __typename?: 'videos', id: string, title: string, description: string, thumbnail_url: string, video_url: string, views: number, duration: number, created_at: any, updated_at: any, owner?: Maybe<{ __typename?: 'users', id: string, name: string, profile_photo_url: string, updated_at: any, email: string, created_at: any }> }> };
+
 export type VideoByPkQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -899,6 +906,57 @@ export function useInsertVideoMutation(baseOptions?: Apollo.MutationHookOptions<
 export type InsertVideoMutationHookResult = ReturnType<typeof useInsertVideoMutation>;
 export type InsertVideoMutationResult = Apollo.MutationResult<InsertVideoMutation>;
 export type InsertVideoMutationOptions = Apollo.BaseMutationOptions<InsertVideoMutation, InsertVideoMutationVariables>;
+export const RecommendVideosDocument = gql`
+    query RecommendVideos($currentVideoId: String!) {
+  videos(where: {id: {_neq: $currentVideoId}}) {
+    id
+    title
+    description
+    thumbnail_url
+    video_url
+    views
+    duration
+    owner {
+      id
+      name
+      profile_photo_url
+      updated_at
+      email
+      created_at
+    }
+    created_at
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useRecommendVideosQuery__
+ *
+ * To run a query within a React component, call `useRecommendVideosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecommendVideosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecommendVideosQuery({
+ *   variables: {
+ *      currentVideoId: // value for 'currentVideoId'
+ *   },
+ * });
+ */
+export function useRecommendVideosQuery(baseOptions: Apollo.QueryHookOptions<RecommendVideosQuery, RecommendVideosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecommendVideosQuery, RecommendVideosQueryVariables>(RecommendVideosDocument, options);
+      }
+export function useRecommendVideosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecommendVideosQuery, RecommendVideosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecommendVideosQuery, RecommendVideosQueryVariables>(RecommendVideosDocument, options);
+        }
+export type RecommendVideosQueryHookResult = ReturnType<typeof useRecommendVideosQuery>;
+export type RecommendVideosLazyQueryHookResult = ReturnType<typeof useRecommendVideosLazyQuery>;
+export type RecommendVideosQueryResult = Apollo.QueryResult<RecommendVideosQuery, RecommendVideosQueryVariables>;
 export const VideoByPkDocument = gql`
     query VideoByPk($id: String!) {
   videos_by_pk(id: $id) {
