@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 
 import { storage } from "../../utils/Firebase/config";
-import { useInsertVideoMutation } from "../../utils/graphql/generated";
+import { useInsertVideoMutation, VideosDocument } from "../../utils/graphql/generated";
 import { GlobalUser } from "../../stores/User";
 
 type UploadProps = {
@@ -21,7 +21,9 @@ export const useVideoUpload = () => {
   const [error, setError] = useState<Error>();
 
   // 動画のメタデータを保存するGraphQL mutation
-  const [mutation, { error: apolloError }] = useInsertVideoMutation();
+  const [mutation, { error: apolloError }] = useInsertVideoMutation({
+    refetchQueries: [{ query: VideosDocument }],
+  });
 
   // videoのownerIdのために、userのidを取得する
   const user = useRecoilValue(GlobalUser);
