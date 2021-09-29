@@ -48,21 +48,21 @@ export const Watch = () => {
             }}
           />
         </Grid>
+        <Grid item xs={4}>
         {recommendVideos?.videos.map(video => (
-          <Grid item xs={4}>
-            <div className={styles.cardPadding}>
-              <Link to={`/watch/${video.id}`} style={{ textDecoration: "none" }}>
-                <VideoHorizontalCard
-                  title={video.title}
-                  views={video.views}
-                  owner={video.owner?.name || ""}
-                  created={video.created_at}
-                  fetcher={() => storage.ref(video.thumbnail_url).getDownloadURL()}
-                />
-              </Link>
-            </div>
-          </Grid>
+          <div className={styles.cardPadding}>
+            <Link to={`/watch/${video.id}`} style={{ textDecoration: "none" }}>
+              <VideoHorizontalCard
+                title={video.title}
+                views={video.views}
+                owner={video.owner?.name || ""}
+                created={video.created_at}
+                fetcher={() => storage.ref(video.thumbnail_url).getDownloadURL()}
+              />
+            </Link>
+          </div>
         ))}
+        </Grid>
       </Grid>
     </Container>
   );
