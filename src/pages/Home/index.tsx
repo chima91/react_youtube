@@ -21,7 +21,7 @@ export const Home = () => {
       <Grid container spacing={2}>
         {/* queryで取得した動画データを表示する */}
         {data?.videos.map(video => (
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={3} key={video.id}>
             {/* VideoCard をクリックしたらプレイヤー画面を表示する。 */}
             <Link to={`/watch/${video.id}`} style={{ textDecoration: "none" }}>
               <VideoCard
