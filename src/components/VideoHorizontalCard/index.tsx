@@ -25,7 +25,9 @@ export const VideoHorizontalCard = ({title, owner, views, created, fetcher}: Vid
     // elevation={0}: box-shadowの影を削除する。square: border-radiusを削除する
     <Card className={`${styles.root} ${styles.transparent}`} elevation={0} square>
       <div className={styles.thumbnail}>
-        <CardMedia className={styles.media} image={src} title="Thumbnail" />
+        {src ? (
+          <CardMedia className={styles.media} image={src} title="Thumbnail" />
+        ) : (<></>)}
       </div>
 
       <CardHeader
