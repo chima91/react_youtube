@@ -22,9 +22,9 @@ export const DashboardHeader = () => {
             <MenuIcon />
           </IconButton>
           {/* useStylesの値は、CSSモジュールと全く同じような使い方で使用できる */}
-          <Link to="/" className={styles.logo}>
+          <div className={styles.logo}>
             <Logo/>
-          </Link>
+          </div>
         </div>
 
         <SearchBar />
