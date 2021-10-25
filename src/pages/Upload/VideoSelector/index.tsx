@@ -103,7 +103,7 @@ export const VideoSelect = ({
           <Grid container className={styles.thumbnailContent} spacing={2}>
             {thumbnailURLs.map(url => {
               return (
-                <Grid item xs={4}>
+                <Grid item xs={4} key={url}>
                   <CardMedia
                     className={`${styles.thumbnail} ${url === selectThumbURL ? styles.selectedThumb : ""}`}
                     image={url}
