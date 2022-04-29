@@ -9,8 +9,8 @@ export const Logo = () => {
     <Link to="/">
       <img
         className={styles.root}
-        src="/static/yt_logo_rgb_light.png"
-        alt="Youtube Logo"
+        src="/logo512.png"
+        alt="ロゴ"
       />
     </Link>
   )

@@ -10,7 +10,7 @@ export default makeStyles({
     marginBottom: 40,
   },
   logo: {
-    width: 80,
+    width: 200,
   },
   label: {
     display: "block",

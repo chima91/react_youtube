@@ -8,7 +8,7 @@ export default makeStyles({
     display: "flex",
   },
   logo: {
-    width: 100,
+    width: "64px",
     display: "flex",
     alignItems: "center",
     marginLeft: 10
